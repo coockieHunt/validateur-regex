@@ -17,17 +17,17 @@ let textareaTest = document.querySelector(".test")
 let btnEffacer = document.querySelector(".btn-effacer");
 let btnCopier = document.querySelector(".btn-copier");
 
-
+// function pour les différents toogle 
 const funcToggle = (btn,content)=>{
     const isHiden = content.classList.toggle("hiden")
     btn.classList.toggle("bi-arrow-down-short",isHiden)
     btn.classList.toggle("bi-arrow-up-short",!isHiden)
 }
-
+// le toggle de bibliotheque de regex
 toggleBiblio.addEventListener("click", () => {
     funcToggle(toggleBiblio, hidenBiblio); 
 });
-
+// toggle pour afficher les pourcentages 
 toggleScore.addEventListener("click",()=>{
     funcToggle(toggleScore, pourcentage); 
 })
