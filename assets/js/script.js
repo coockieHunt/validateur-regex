@@ -17,17 +17,7 @@ let textareaTest = document.querySelector(".test")
 let btnEffacer = document.querySelector(".btn-effacer");
 let btnCopier = document.querySelector(".btn-copier");
 
-// Pour faire le toggle 
-// toggleBiblio.addEventListener("click",() =>{
-    
-    
-//     const isHiden = hidenBiblio.classList.toggle("hiden");
-//     console.log(isHiden)
 
-//     toggleBiblio.classList.toggle("bi-arrow-down-short",isHiden)
-   
-//     toggleBiblio.classList.toggle("bi-arrow-up-short",!isHiden)
-// })
 const funcToggle = (btn,content)=>{
     const isHiden = content.classList.toggle("hiden")
     btn.classList.toggle("bi-arrow-down-short",isHiden)
