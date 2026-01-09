@@ -19,15 +19,45 @@ let btnCopier = document.querySelector(".btn-copier");
 
 // function pour les différents toogle 
 const funcToggle = (btn,content)=>{
+    // pour ajouter la class hiden au element 
     const isHiden = content.classList.toggle("hiden")
+    // si la class isHiden existe alors on change le logo 
     btn.classList.toggle("bi-arrow-down-short",isHiden)
+    // si la class isHiden = false alors on change de logo 
     btn.classList.toggle("bi-arrow-up-short",!isHiden)
 }
+
 // le toggle de bibliotheque de regex
 toggleBiblio.addEventListener("click", () => {
     funcToggle(toggleBiblio, hidenBiblio); 
 });
+
 // toggle pour afficher les pourcentages 
 toggleScore.addEventListener("click",()=>{
     funcToggle(toggleScore, pourcentage); 
 })
+
+
+// Fonction pour verifier l'expression 
+btnLancer.addEventListener("click",(e) =>{
+    e.preventDefault()
+    let erreur = document.querySelector(".erreur")
+    // pour recuperer la valeur du texte 
+   let regexValue = inputRegex.value.trim();
+   if(regexValue==""){
+     erreur.textContent="Erreur tu dois saisir un regex "
+     erreur.style.color="red";
+   }
+   else{
+    erreur.textContent="";
+    // appelle de la function pour faire les test
+    funcTest(regexValue)
+   }
+   
+
+})
+
+// function pour les test 
+function funcTest(regexValue){
+    console.log(regexValue)
+}
