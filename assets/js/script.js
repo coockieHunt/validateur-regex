@@ -17,6 +17,9 @@ let textareaTest = document.querySelector(".test")
 let btnEffacer = document.querySelector(".btn-effacer");
 let btnCopier = document.querySelector(".btn-copier");
 let erreur = document.querySelector(".erreur")
+let compteurReussi = 0;
+let compteurTest = 0; 
+let pourcentageFinale = 0; 
 
 // function pour les différents toogle 
 const funcToggle = (btn,content)=>{
@@ -70,11 +73,14 @@ btnLancer.addEventListener("click",(e) =>{
 
 // function pour un test 
 function funcTest(regexValue){
-    
+    compteurTest = 0;
+    compteurReussi = 0;
     // console.log(regexValue)
     // recuperation du test 
     let testValue = textareaTest.value.trim()
     let lignes = testValue.split("\n");
+    
+    let moteurRegex = new RegExp(regexValue);
 
     // on boucle sur lignes 
     lignes.forEach((ligne) => {
@@ -92,8 +98,18 @@ function funcTest(regexValue){
                 let indicateur = analyse[1].toUpperCase()
                 // recuperer le text du test 
                 const text = analyse[2].trim()
-                console.log("indicateur :",indicateur)
-                console.log("text : ",text)
+                // console.log("indicateur :",indicateur)
+                // console.log("text : ",text)
+
+                let estValide = moteurRegex.test(text)
+                compteurTest++;
+                 let reussite = false;
+                if(indicateur ==="[OK]" && estValide) reussite = true;
+                if(indicateur ==="[KO]" && !estValide) reussite = true;
+                 if(reussite){
+                    compteurReussi++;
+                    // console.log("succes")
+                }
                 
             }else{
                 // s'il a une erreur consernant les test 
@@ -104,6 +120,13 @@ function funcTest(regexValue){
        
 
     });
+    // Pour afficher les rsultat
+    if(compteurTest> 0){
+        pourcentageFinale = (compteurReussi / compteurTest) *100;
+        console.log(` Tu as ${compteurReussi} / ${compteurTest}  donc ${pourcentageFinale}`)
+    }else{
+        console.log("0 %")
+    }
     
     
 }
