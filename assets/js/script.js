@@ -9,6 +9,7 @@ let btnLancer = document.querySelector("#btn-lancer");
 let toggleScore = document.querySelector(".toggle-score");
 let pourcentage = document.querySelector(".div-pourcentage");
 let paraPourcentage = document.querySelector(".pourcentage");
+let resultatTest = document.querySelector(".resultat-test")
 
 let inputRegex = document.querySelector(".input-regex");
 let btnTelTest = document.querySelector(".btn-tel-test");
@@ -122,10 +123,10 @@ function funcTest(regexValue){
 
     });
     let detailTest = `${compteurReussi} / ${compteurTest}`
-    console.log(detailTest)
+    resultatTest.textContent = detailTest
         // Pour calculer le score 
     let scoreFinal = calculerScore(compteurReussi, compteurTest);
-    console.log(scoreFinal)
+    paraPourcentage.textContent= scoreFinal+"%";
  
     
     
