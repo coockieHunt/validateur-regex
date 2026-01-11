@@ -106,6 +106,7 @@ function funcTest(regexValue){
                  let reussite = false;
                 if(indicateur ==="[OK]" && estValide) reussite = true;
                 if(indicateur ==="[KO]" && !estValide) reussite = true;
+
                  if(reussite){
                     compteurReussi++;
                     // console.log("succes")
@@ -120,13 +121,15 @@ function funcTest(regexValue){
        
 
     });
-    // Pour afficher les rsultat
-    if(compteurTest> 0){
-        pourcentageFinale = (compteurReussi / compteurTest) *100;
-        console.log(` Tu as ${compteurReussi} / ${compteurTest}  donc ${pourcentageFinale}`)
-    }else{
-        console.log("0 %")
-    }
+    // Pour calculer le score 
+  let scoreFinal = calculerScore(compteurReussi, compteurTest);
+  console.log(scoreFinal)
     
     
+}
+// FONCTION POUR CALCULER LE SCORE 
+function calculerScore(succes,total){
+    if (total ==0) return 0;
+    let resultat = (succes / total) *100
+    return Math.round(resultat)
 }
