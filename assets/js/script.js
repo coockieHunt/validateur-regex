@@ -156,7 +156,9 @@ btnEffacer.addEventListener("click",() =>{
 })
 
 btnCopier.addEventListener("click",()=>{
-    // let regexValue = inputRegex.value.trim();
-
+    let regexValue = inputRegex.value.trim();
+    if(funcVerificationRegex(regexValue)){
+        console.log("reussi")
+    }
     // console.log(regexValue)
 })
