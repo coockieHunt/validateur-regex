@@ -42,37 +42,42 @@ toggleScore.addEventListener("click",()=>{
     funcToggle(toggleScore, pourcentage); 
 })
 
-
-// Fonction pour verifier l'expression 
-btnLancer.addEventListener("click",(e) =>{
-    e.preventDefault()
-    // Selectionne le p pour afficher le message erreur 
-    
-    // pour recuperer la valeur du texte 
-   let regexValue = inputRegex.value.trim();
+// FONCTION POUR VALIDER LA STRUCTURE DES REGEX  
+function funcVerificationRegex(regexValue){
+     
+   
 //    pour verifier que le regex est bon on verifie les symbole 
     let symbolesRegex = /[\[\]\(\)\*\+\?\.\\\^\$\|\{\}]/;
 
    if(regexValue==""){
      erreur.textContent="Erreur tu dois saisir un regex "
-    return erreur.style.color="red";
+     erreur.style.color="red";
+     return false;
    }
-//    si il n'y a aucun symbole c'est du texte 
-   else if(!symbolesRegex.test(regexValue)) {
+    //  si il n'y a aucun symbole c'est du texte 
+    if(!symbolesRegex.test(regexValue)) {
     erreur.textContent="";
     erreur.textContent="Attention ceci a ressemble a du texte et pas à un regex"
-    return erreur.style.color="red";
+     erreur.style.color="red";
+     return false;
     
-   }else{
-
-    erreur.textContent="";
-    // appelle de la function pour faire les test
-    funcTest(regexValue)
    }
-   
+   erreur.textContent="";
+    // appelle de la function pour faire les test
+    return true;
+}
+
+// Pour lancer les test
+btnLancer.addEventListener("click",(e)=>{
+    e.preventDefault();
+    let regexValue = inputRegex.value.trim();
+    if(funcVerificationRegex(regexValue)){
+        funcTest(regexValue)
+    }
 })
 
-// function pour un test 
+
+//FUNCTION POUR LES TEST
 function funcTest(regexValue){
     compteurTest = 0;
     compteurReussi = 0;
@@ -115,7 +120,7 @@ function funcTest(regexValue){
                 
             }else{
                 // s'il a une erreur consernant les test 
-                erreur.textContent="format invalide"
+                erreur.textContent="Format invalide - ton test doit commencer par [ok] ou [ko]"
                  erreur.style.color="red";
             }
         }
@@ -138,6 +143,7 @@ function calculerScore(succes,total){
     return Math.round(resultat)
 }
 
+// POUR EFFACER LE TEXTE 
 btnEffacer.addEventListener("click",() =>{
 
     inputRegex.value="";
@@ -146,3 +152,46 @@ btnEffacer.addEventListener("click",() =>{
     resultatTest.textContent="0 /0";
    
 })
+// FUNCTION POUR COPIER DANS LE PRESSE PAPIER LE REGEX
+function funcCopier(regexValue){
+    navigator.clipboard.writeText(regexValue)
+    .then( ()=>{
+        // Affiche un message pour dire que le texte a etait copié 
+        erreur.textContent="Le Regex à était copié ! ";
+        erreur.style.color="green";
+        // s'efface au bou de 2s 
+        setTimeout(() => {
+            erreur.textContent="";
+        }, 2000);
+    } )
+    .catch(err=>{
+        console.error("Erreur lors de la copie ",err)
+    })
+}
+
+btnCopier.addEventListener("click",()=>{
+    let regexValue = inputRegex.value.trim();
+    if(funcVerificationRegex(regexValue)){
+        // console.log(regexValue)
+        funcCopier(regexValue);
+
+    }
+    
+})
+
+
+function regexBibliotheque(regex){
+    inputRegex.value="";
+    inputRegex.value = regex;
+}
+
+btnTelBiblio.addEventListener("click",() =>{
+   
+    regexBibliotheque("^0[1-9][0-9]{8}$");
+   
+})
+
+btnEmailBiblio.addEventListener("click",()=>{
+    regexBibliotheque("^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$");
+})
+
